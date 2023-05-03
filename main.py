@@ -40,6 +40,7 @@ while True:
     # Exit on 'q' key press
     if cv.waitKey(1) == ord('q'):
         break
+    
 
 # Release the capture and close the window
 cap.release()
