@@ -10,6 +10,6 @@ This is a project on gesture control using AI.
 Version 0:
 Task that the chat bot should do:
 
-1 Finger: Create file
-2 Finger: Delete File
-3 Finger: Open file
+1 Finger: Create file \n
+2 Finger: Delete File \n
+3 Finger: Open file \n
