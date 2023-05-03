@@ -7,7 +7,7 @@ This is a project on gesture control using AI.
 3. Play song
 
 
-Version 0:
+>Version 0:
 Task that the chat bot should do:
 
 1 Finger: Create file 
