@@ -11,5 +11,5 @@ Version 0:
 Task that the chat bot should do:
 
 1 Finger: Create file 
-2 Finger: Delete File 
-3 Finger: Open file 
+2 Finger: Open file
+3 Finger: Delete file 
