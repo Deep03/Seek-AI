@@ -27,9 +27,8 @@ while True:
     gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
     # Save the frame as an image
-    filename = f"frame-imgs/frame_{frame_count}.jpg"
-    path_frame = os.path.join(cwd, filename)
-    cv.imwrite(path_frame, gray)
+    filename = f"seek/frame-imgs/frame_{frame_count}.jpg"
+    cv.imwrite(filename, gray)
 
     # Update frame counter
     frame_count += 1
@@ -45,22 +44,3 @@ while True:
 # Release the capture and close the window
 cap.release()
 cv.destroyAllWindows()
-
-time.sleep(2)
-
-# Ask the user if they want to keep the frames
-response = input("Do you want to keep those frames? (y/n): ")
-if response.upper() == 'Y':
-    exit()
-elif response.upper() == 'N':
-    file_path = cwd + "/frame-imgs"
-
-    # Get a list of all files in the folder
-    files = os.listdir(file_path)
-
-    # Loop through each file and delete it
-    for file in files:
-        # Delete the file
-        os.remove(file_path + "/" + file)
-
-    print("All files in the folder have been deleted.")
