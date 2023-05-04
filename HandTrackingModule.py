@@ -10,6 +10,13 @@ import cv2 as cv
 import mediapipe as mp
 import time
 
+
+"""
+handDetector class does:
+    -Initialzes all the parametrs
+    -draws landmarks and connections and then returns processed image
+    -Lists all the landmarks values and returns the list back-
+"""
 class  handDetector():
     def __init__(self,static_image_mode=False,max_num_hands=2,model_complexity=1,min_detection_confidence=0.5,min_tracking_confidence=0.5):
         self.static_image_mode = static_image_mode
@@ -23,7 +30,8 @@ class  handDetector():
         self.hands = self.mpHands.Hands(self.static_image_mode,self.max_num_hands,
                                         self.model_complexity,self.min_detection_confidence,self.min_tracking_confidence)
         self.mpDraw=mp.solutions.drawing_utils
-    
+
+    #Reads the image then draws landmark and connecting lines,finally returns processed image
     def findHands(self,img,draw=True, connections_color=(0, 255, 0)):
         imgRGB=cv.cvtColor(img,cv.COLOR_BGR2RGB)
         self.results=self.hands.process(imgRGB)
@@ -32,7 +40,8 @@ class  handDetector():
                 if draw:
                  self.mpDraw.draw_landmarks(img,handLms,self.mpHands.HAND_CONNECTIONS, connection_drawing_spec=mp.solutions.drawing_utils.DrawingSpec(color=connections_color, thickness=2, circle_radius=2))   
         return img
-
+    
+    #Makes the list of all landmark values(index,x value and y value) and returns the list
     def findPosition(self,img,handNo=0, draw=True):
         lmlist=[]
         if self.results.multi_hand_landmarks:
@@ -45,6 +54,13 @@ class  handDetector():
                 if draw:
                   cv.circle(img, (cx, cy), 7, (0, 0, 255), cv.FILLED)
         return lmlist
+"""
+Main function does:
+    -takes all output from findHands and findPosition functions
+    -checks given codition
+    -puts FPS value on screen
+    -Displays final Image
+"""
 def main():
     pTime=0
     cTime=0
