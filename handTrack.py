@@ -5,8 +5,6 @@ Date :May 04 2023
 
 """
 
-
-
 import cv2 as cv
 import mediapipe as mp
 import time
@@ -26,8 +24,6 @@ class  handDetector():
         self.model_complexity=model_complexity
         self.min_detection_confidence=min_detection_confidence
         self.min_tracking_confidence=min_tracking_confidence
-
-
         self.mpHands=mp.solutions.hands
         self.hands = self.mpHands.Hands(self.static_image_mode,self.max_num_hands,
                                         self.model_complexity,self.min_detection_confidence,self.min_tracking_confidence)
@@ -77,17 +73,15 @@ def main():
         success, img =cap.read()
         img = detector.findHands(img)
         lmlist=detector.findPosition(img)
-        if len(lmlist)!=0:
-         print(lmlist[4])
+        # if len(lmlist)!=0:
+        #  print(lmlist[4])
         if not success:
             break
         cTime=time.time()
         fps=1/(cTime-pTime)
         pTime=cTime
         cv.putText(img,str(int(fps)),(5,60),cv.FONT_HERSHEY_PLAIN,3,(255,0,255),3)
-
         cv.imshow("Image",img)
-
         if cv.waitKey(1)==ord("q"):
             break
     cap.release()
@@ -97,28 +91,4 @@ def main():
 
     
 if __name__== "__main__":
-    lmlist1 = main()
-    wrist_arr = lmlist1[0]
-    thumb1 = lmlist1[2]
-    thumb2 = lmlist1[4]
-    index1 = lmlist1[5]
-    index2 = lmlist1[8]
-    middle1 = lmlist1[9]
-    middle2 = lmlist1[12]
-    ring1 = lmlist1[13]
-    ring2 = lmlist1[16]
-    pinky1 = lmlist1[17]
-    pinky2 = lmlist1[20]
-    thumb_dist = distance(thumb1[1], thumb1[2], thumb2[1], thumb2[2])
-    index_dist = distance(index1[1], index1[2], index2[1], index2[2])
-    middle_dist = distance(middle1[1], middle1[2], middle2[1], middle2[2])
-    ring_dist = distance(ring1[1], ring1[2], ring2[1], ring2[2])
-    pinky_dist = distance(pinky1[1], pinky1[2], pinky2[1], pinky2[2])
-    max_finger = max(thumb_dist, index_dist, middle_dist, ring_dist, pinky_dist)
-    if (max_finger == thumb_dist):
-        with open("seek/index.txt", 'w+') as f:
-            f.write("IT WORKED!!!!")
-            f.close()
-    else:
-        print("FU****** YOUUUUU IDIOT")
-
+    main()
