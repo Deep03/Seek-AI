@@ -1,16 +1,16 @@
-This is a project on gesture control using AI.
+# Gesture Control Project using AI
 
->Basic Features:
+## Basic Features:
 
-1. control mouse recognizing hand pattern from camera.
-2. Search web
-3. Play song
-4. Space type
+1. Control mouse by recognizing hand patterns from a camera.
+2. Search the web.
+3. Play songs.
+4. Type in space.
 
+## Version 0:
 
->Version 0:
-Task that the chat bot should do:
+Tasks that the chat bot should do:
 
-1 Finger: Create file <br />
-2 Finger: Open file <br />
-3 Finger: Delete file  <br />
+- 1 Finger: Create file.
+- 2 Fingers: Open file.
+- 3 Fingers: Delete file.
