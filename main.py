@@ -1,46 +1,30 @@
-import numpy as np
 import cv2 as cv
-import os, time
+import mediapipe as mp
+import time
+import HandTrackingModule as htm
 
-# Open the camera
-cap = cv.VideoCapture(0)
-if not cap.isOpened():
-    print("Cannot open camera")
-    exit()
+pTime=0
+cTime=0
+cap=cv.VideoCapture(0)
+detector = htm.handDetector()
+while(True):
+    success, img =cap.read()
+    img = detector.findHands(img)
+    lmlist=detector.findPosition(img)
+    if len(lmlist)!=0:
+        print(lmlist[4])
+    if not success:
+        break
+    cTime=time.time()
+    fps=1/(cTime-pTime)
+    pTime=cTime
+    cv.putText(img,str(int(fps)),(5,60),cv.FONT_HERSHEY_PLAIN,3,(255,0,255),3)
 
-# Initialize frame counter
-frame_count = 0
-
-# Get the current working directory
-cwd = os.getcwd()
-
-while True:
-    # Capture frame-by-frame
-    ret, frame = cap.read()
-
-    # if frame is read correctly ret is True
-    if not ret:
-        print("Can't receive frame (stream end?). Exiting ...")
+    cv.imshow("Image",img)
+    if cv.waitKey(1)==ord("q"):
         break
 
-    # Convert the frame to grayscale
-    gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
-    # Save the frame as an image
-    filename = f"seek/frame-imgs/frame_{frame_count}.jpg"
-    cv.imwrite(filename, gray)
-
-    # Update frame counter
-    frame_count += 1
-    
-    # Display the resulting frame
-    cv.imshow('frame', gray)
-    
-    # Exit on 'q' key press
-    if cv.waitKey(1) == ord('q'):
-        break
-    
-
-# Release the capture and close the window
 cap.release()
 cv.destroyAllWindows()
+

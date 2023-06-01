@@ -5,6 +5,10 @@ This is a project on gesture control using AI.
 1. control mouse recognizing hand pattern from camera.
 2. Search web
 3. Play song
+<<<<<<< HEAD
+=======
+4. Space type
+>>>>>>> main
 
 
 >Version 0:
