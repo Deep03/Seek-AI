@@ -1,15 +1,6 @@
-"""
-Hand Tracking Module 
-Name: Upendra Pant
-Date :May 04 2023
-
-"""
-
-
 import cv2 as cv
 import mediapipe as mp
 import time
-lmlist = []
 
 """
 handDetector class does:
@@ -43,6 +34,7 @@ class  handDetector():
     
     #Makes the list of all landmark values(index,x value and y value) and returns the list
     def findPosition(self,img,handNo=0, draw=True):
+        lmlist = []
         if self.results.multi_hand_landmarks:
             myHand=self.results.multi_hand_landmarks[handNo]
 
