@@ -1,3 +1,6 @@
 seek/frame-imgs
 pyvenv.cfg
 samplelist.txt
+Seek-AI/seek/lib
+Seek-AI/seek/test
+Seek-AI/seek/venv
