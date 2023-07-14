@@ -1,55 +1,42 @@
 import numpy as np
 import random
-import cv2 as cv
 
-
-# class baseLayer():
-#     def __init__(self):
-#         self.input=None
-#         self.output=None
-    
-#     def forward(self , input):
-#         pass
-
-#     def backward(self ,output_gradiebnt , learning_rate ):
-#         pass
-
-input = np.random.randn(10)
-input=input.T
-
-class denseLayer():
-
-    #Initializes weights and biases values randomly
-    def __init__(self , input_size , output_size):
-        self.weights = np.random.randn(output_size,input_size)
+class Layer:
+    def initParams(self, input_size, output_size):
+        self.weights = np.random.randn(output_size, input_size)
         self.bias = np.random.randn(output_size)
+        return self.weights, self.bias
     
-    def forward(self , input):
+    def forward(self, input):
         self.input = input
-        return np.dot(self.weights , self.input) + self.bias
-
-    def backward(self , output_gradient , learning_rate):
-        pass
-
-    def activationFunction(z):
-        # return np.maximum(z, 0)
-        return z>0
-
-#hidden layer 1
-hidden_1 = denseLayer(10,10)
-z1=hidden_1.forward(input)
-
-#hidden layer 2
-hidden_2 = denseLayer(10,10)
-z2 = hidden_2.forward(z1)
+        return np.dot(self.weights, self.input) + self.bias
+    
+    def inputInitializer(self, input_size):
+        self.input = np.random.randn(input_size)
+        return self.input
+    
+    def ActivationReLU(self, z):
+        return np.maximum(0, z)
+    
+    def ActivationSoftmax(self, Z):
+        A = np.exp(Z) / np.sum(np.exp(Z))
+        return A
 
 
-layer_1_activated= denseLayer.activationFunction(z1)
-layer_2_activated= denseLayer.activationFunction(z2)
+layer = Layer()
 
-print("layer 1 output is:\n",z1)
-print("layer 1 Activation:\n",layer_1_activated)
+input_neurons = layer.inputInitializer(4)
+w1, b1 = layer.initParams(4, 8)
+z1 = layer.forward(input_neurons)
+z1_relu = layer.ActivationReLU(z1)
 
-print("\nlayer 2 output is:\n",z2)
-print("layer 2 Activation:\n",layer_1_activated)
+w2, b2 = layer.initParams(8, 4)
+y = layer.forward(z1_relu)
+y_softmax = layer.ActivationSoftmax(y)
 
+print('-' * 10, "Neural Network Tester", '-' * 30)
+print("\nInput Layer:\n", input_neurons)
+print("\nHidden Layer One:\n", "\nweights:\n", w1, "\n\nbiases:\n", b1)
+print("\nReLU Output:\n", z1_relu)
+print("\nOutput Layer:\n", "\nweights:\n", w2, "\n\nbiases:\n", b2)
+print("\nSoftmax Output:\n", y_softmax)
